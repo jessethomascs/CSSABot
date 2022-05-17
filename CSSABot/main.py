@@ -24,7 +24,18 @@ async def purge(ctx, userId):
     counter = 0
     async for message in ctx.history(limit=200):
         if message.author == bot.user:
-            await message.delete() # Deletes message for given user 
+            await message.delete() # Deletes message for given user
+
+@bot.command(name='jail')
+async def jail(ctx, userId):
+    print('jail call')
+
+@bot.command(name='watch')
+async def watch(ctx, userId):
+    print('watch dog activated on $user', userId)
+
+@bot.command(name='publish')
+    print('Publishing JSON information')
 
 
 
