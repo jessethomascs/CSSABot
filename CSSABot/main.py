@@ -51,7 +51,7 @@ async def jail(ctx):
 async def watch(ctx):
     # Log user in database watch list
     pyToJson = {}
-    message = ctx.message 
+    message = ctx.message
     if message.mentions:
         member = message.mentions[0]
         pyToJson = {
