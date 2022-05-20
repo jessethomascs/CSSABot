@@ -104,13 +104,17 @@ async def on_raw_reaction_add(payload):
 
 @bot.event
 async def on_raw_reaction_remove(payload):
-    #print(payload) #Debug
-    channelId = 694520377300484137
-    role = discord.utils.get(payload.member.guild.roles, name = 'Test')
+    guild = bot.get_guild(payload.guild_id)
+    member = await guild.fetch_member(payload.user_id) # payload.member not available for REACTION_REMOVE event type
+    
     if payload.emoji.name == '🥊':
-        await payload.member.remove_roles(payload.member, role)
+        role = discord.utils.get(guild.roles, name="Test")
+        await member.remove_roles(role)
+    else:
+        return
 
-
+    return
+    
 
 
 
