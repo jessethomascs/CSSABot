@@ -120,4 +120,17 @@ async def on_raw_reaction_remove(payload):
     else:
         return
 
+@bot.event 
+async def on_member_join(member):
+    welcomeMsg = 'read from json here'
+    return # Replace with awaiting send message on join 
+
+@bot.event 
+async def on_member_leave(member):
+    return # Insert proper json logging here if applicable 
+
+
+
+
+# Ending line that runs the bot 
 bot.run(TOKEN)
