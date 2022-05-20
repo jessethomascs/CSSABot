@@ -6,6 +6,7 @@ import json
 
 from discord.ext import commands
 from dotenv import load_dotenv
+from paramiko import Channel
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -14,10 +15,6 @@ bot = commands.Bot(command_prefix='.')
 bot.remove_command('help') # Removes default help command
 guild = discord.Guild
 
-#Syntax     ".help". Produces an embedded help message
-@bot.command(name='help')
-async def nine_nine(ctx):
-    await ctx.send('test')
 
 # Syntax    ".clear {amnt}". Exists to clear n-amount of messages from the channel the command is called from
 @bot.command(name='clear') # usage: clear's last n messages
@@ -73,20 +70,49 @@ async def watch(ctx):
 async def watchlist(ctx):
     print('Current watch list:')
 
+#Syntax     ".publish". Exists to post announcement from configured file
+@bot.command(name='publish')
+async def publish(ctx):
+    print('Publishing JSON information')
 
-#@bot.command(name='publish')
-#    print('Publishing JSON information')
+@bot.command(name='help')
+async def help(ctx):
+    await ctx.send("Help me! Help! ... Is it me? Am I the drama?")
+
+@bot.command(name='uptime')
+async def uptime(ctx):
+    await ctx.send('Uptime')
+
+@bot.command(name='info')
+async def info(ctx):
+    await ctx.send('info')
+
+@bot.command(name='club')
+async def club(ctx):
+    await info(ctx)
+
+@bot.command(name='request-info')
+async def requestInfo(ctx):
+    await ctx.send('We have no info on you...... yet :moyai:')
+
+@bot.event
+async def on_raw_reaction_add(payload):
+    #print(payload) #Debug
+    channelId = 694520377300484137
+    if payload.emoji.name == '🥊':
+        await payload.member.add_roles(discord.utils.get(payload.member.guild.roles, name='Test'))
+
+@bot.event
+async def on_raw_reaction_remove(payload):
+    #print(payload) #Debug
+    channelId = 694520377300484137
+    role = discord.utils.get(payload.member.guild.roles, name = 'Test')
+    if payload.emoji.name == '🥊':
+        await payload.member.remove_roles(payload.member, role)
 
 
 
 
 
-
-
-@bot.command(name='overload') # Will be removed, here only to test overloading in python
-async def overload(ctx, *args):
-    # In theory now we can load in whatever arguments we want?
-    # test theory -> overload(int): await 'integer' || overload(str): await 'str'
-    await ctx.send('value '+ "\n".join(args))
 
 bot.run(TOKEN)
