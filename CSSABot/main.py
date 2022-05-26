@@ -129,6 +129,10 @@ async def on_member_join(member):
 async def on_member_leave(member):
     return # Insert proper json logging here if applicable 
 
+@bot.event
+async def on_message(message):
+    return # Whenever a message is sent
+
 
 
 
