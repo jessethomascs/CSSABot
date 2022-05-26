@@ -8,6 +8,7 @@ from discord.ext import commands
 from dotenv import load_dotenv
 from paramiko import Channel
 
+
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 

@@ -1,0 +1,2 @@
+# This class exists for the express purpose of documentation. A web-server connection will be implemented in the 
+# JavaScript remodel of this bot. Python is not the ideal place for this purpose for both security and efficiency.
