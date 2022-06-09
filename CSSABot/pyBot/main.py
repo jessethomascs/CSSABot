@@ -8,6 +8,7 @@ from discord.ext import commands
 from dotenv import load_dotenv
 from paramiko import Channel
 
+
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
@@ -97,26 +98,44 @@ async def requestInfo(ctx):
 
 @bot.event
 async def on_raw_reaction_add(payload):
-    #print(payload) #Debug
-    channelId = 694520377300484137
-    if payload.emoji.name == '🥊':
-        await payload.member.add_roles(discord.utils.get(payload.member.guild.roles, name='Test'))
+    channelId = 976927454591590512
+
+    if payload.channel_id == channelId:
+        if payload.emoji.name == '🥊':
+            await payload.member.add_roles(discord.utils.get(payload.member.guild.roles, name='Test'))
+    else:
+        return
 
 @bot.event
 async def on_raw_reaction_remove(payload):
     guild = bot.get_guild(payload.guild_id)
     member = await guild.fetch_member(payload.user_id) # payload.member not available for REACTION_REMOVE event type
-    
-    if payload.emoji.name == '🥊':
-        role = discord.utils.get(guild.roles, name="Test")
-        await member.remove_roles(role)
+    channelId = 976927454591590512
+
+    if payload.channel_id == channelId:
+        if payload.emoji.name == '🥊':
+            role = discord.utils.get(guild.roles, name="Test")
+            await member.remove_roles(role)
+        else:
+            return
     else:
         return
 
-    return
-    
+@bot.event 
+async def on_member_join(member):
+    welcomeMsg = 'read from json here'
+    return # Replace with awaiting send message on join 
+
+@bot.event 
+async def on_member_leave(member):
+    return # Insert proper json logging here if applicable 
+
+@bot.event
+async def on_message(message):
+    return # Whenever a message is sent
 
 
 
 
+# Ending line that runs the bot 
 bot.run(TOKEN)
