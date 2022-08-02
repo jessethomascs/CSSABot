@@ -1,0 +1,26 @@
+{
+  "name": "cssabot",
+  "version": "1.0.0",
+  "description": "[Last updated May 03, 2022]",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jessethomascs/CSSABot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jessethomascs/CSSABot/issues"
+  },
+  "homepage": "https://github.com/jessethomascs/CSSABot#readme",
+  "dependencies": {
+    "@discordjs/rest": "^1.0.1",
+    "discord.js": "^14.1.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.21.0"
+  }
+}
