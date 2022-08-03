@@ -8,8 +8,22 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 // Dynamically reference commands separately
 client.commands = new Collection();
 const commandsPath = path.join(__dirname, 'commands');
+const eventsPath = path.join(__dirname, 'events');
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
 
+// Retrieves all the events
+for (const file of eventFiles) {
+	const filePath = path.join(eventsPath, file);
+	const event = require(filePath);
+	if (event.once) {
+		client.once(event.name, (...args) => event.execute(...args));
+	} else {
+		client.on(event.name, (...args) => event.execute(...args));
+	}
+}
+
+// Retrieves all the commands
 for (const file of commandFiles) {
 	const filePath = path.join(commandsPath, file);
 	const command = require(filePath);
@@ -18,25 +32,5 @@ for (const file of commandFiles) {
 	client.commands.set(command.data.name, command);
 }
 
-// Start the bot
-client.once('ready', () => {
-	console.log('Frederick has started, the time is presently ' + Date().toLocaleString('en-US', { timeZone: 'EST' }) + ' EST.');
-});
-
-// Listening
-client.on('interactionCreate', async interaction => {
-	if (!interaction.isChatInputCommand()) return;
-
-	const command = client.commands.get(interaction.commandName);
-
-	if (!command) return;
-
-	try {
-		await command.execute(interaction);
-	} catch (error) {
-		console.error(error);
-		await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
-	}
-});
 
 client.login(token);
