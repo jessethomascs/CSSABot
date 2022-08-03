@@ -4,14 +4,10 @@
 This is a repository for the open-source Discord bot for the CSSA Discord and community
 
 Overview:
-  "CSSABot" is a resource tool to make the life of the Computer Science Student Association at Southern New Hampshire University a little bit easier to       manage our internal resources a little easier. The bot will will contain several capabilities when it is finished. Presently, this is work in progress     and is open source for the community to view in spirit of being future developers somewhere in the field of computer science! For a look at how this       project is doing, our trello board is listed below.
+  "CSSABot" is being developed to be an open source tool that will be able to be used at Southern New Hampshire University as a general tool for the Computer Science Club to bridge between club board staff and club members. The tool is being developed with an abstract generalization in mind so that it can also be applied to other clubs for use and easy setup.
   
 Trello Board:
   https://trello.com/b/EYX0bAtM/cssabot
 
 Dependencies [Latest version only]:
-  python: discord, json, os, random
-
-File Descriptions:
-  main.py: Contains all the functions relevant to python. This is a can of everything before porting to a javascript version of the bot
-
+  JavaScript: Discord.js, NodeJS
