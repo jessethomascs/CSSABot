@@ -9,8 +9,11 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 // Dynamically reference commands separately
 client.commands = new Collection();
+const databasePath = path.join(__dirname, 'database');
 const commandsPath = path.join(__dirname, 'commands');
 const eventsPath = path.join(__dirname, 'events');
+
+const databaseFiles = fs.readdirSync(databasePath).filter(file => file.endsWith('.js'));
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
 
@@ -28,6 +31,14 @@ for (const file of eventFiles) {
 // Retrieves all the commands
 for (const file of commandFiles) {
 	const filePath = path.join(commandsPath, file);
+	const command = require(filePath);
+	// Set a new item in the Collection
+	// With the key as the command name and the value as the exported module
+	client.commands.set(command.data.name, command);
+}
+
+for (const file of databaseFiles) {
+	const filePath = path.join(databasePath, file);
 	const command = require(filePath);
 	// Set a new item in the Collection
 	// With the key as the command name and the value as the exported module
