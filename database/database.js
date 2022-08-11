@@ -1,10 +1,19 @@
 require('dotenv').config();
-const mysql = require('mysql');
+const mysql = require('mysql2');
 
-mysql.createConnection({
-	user: process.env.DBUSER,
-	// eslint-disable-next-line comma-dangle
-	pass: process.env.DBPASS
+const dbconnect = mysql.createConnection({
+	host: 'localhost',
+	user: process.env.DB_USER,
+	password: process.env.DB_PASS,
+	database: 'frederick_test',
+	port: 3306
 });
 
-mysql.createConnection();
+
+dbconnect.connect(function(err) {
+	if (err) {
+		console.log(err);
+	} else {
+		console.log('Database connection successful');
+	}
+});
